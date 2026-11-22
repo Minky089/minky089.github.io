@@ -16,6 +16,33 @@ sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); }
 
 
 
+// theme toggle variables
+const themeToggleBtn = document.querySelector("[data-theme-toggle]");
+const themeToggleText = document.querySelector("[data-theme-toggle-text]");
+const themeToggleIcon = themeToggleBtn.querySelector("ion-icon");
+const savedTheme = localStorage.getItem("portfolio-theme");
+const preferredTheme = savedTheme || "dark";
+
+const setTheme = function (theme) {
+  const isLightTheme = theme === "light";
+
+  document.body.dataset.theme = theme;
+  themeToggleText.innerText = isLightTheme ? "Night" : "Day";
+  themeToggleIcon.setAttribute("name", isLightTheme ? "sunny-outline" : "moon-outline");
+  themeToggleBtn.setAttribute("aria-label", isLightTheme ? "Switch to dark theme" : "Switch to light theme");
+  localStorage.setItem("portfolio-theme", theme);
+}
+
+setTheme(preferredTheme);
+
+themeToggleBtn.addEventListener("click", function () {
+  const nextTheme = document.body.dataset.theme === "light" ? "dark" : "light";
+
+  setTheme(nextTheme);
+});
+
+
+
 // testimonials variables
 const testimonialsItem = document.querySelectorAll("[data-testimonials-item]");
 const modalContainer = document.querySelector("[data-modal-container]");
